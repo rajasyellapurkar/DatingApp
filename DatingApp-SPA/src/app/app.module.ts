@@ -13,6 +13,7 @@ import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { ListsComponent } from './lists/lists.component';
@@ -24,6 +25,10 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { AuthGuard } from './_guards/auth.guard';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { PhotoEditComponent } from './members/photo-edit/photo-edit.component';
 
 
 export function tokenGetter(){
@@ -47,7 +52,9 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       MemberDetailComponent,
       MemberCardComponent,
       ListsComponent,
-      MessagesComponent
+      MessagesComponent,
+      MemberEditComponent,
+      PhotoEditComponent
    ],
    imports: [
       BrowserModule,
@@ -64,7 +71,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
             blacklistedRoutes:['localhost:5000/api/auth']
          }
       }),
-      TabsModule.forRoot()
+      TabsModule.forRoot(),
+      FileUploadModule
    ],
    providers: [
       AuthService,
@@ -72,7 +80,9 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       AuthGuard,
       MemberDetailResolver,
       MemberListResolver,
-      { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
+      { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig },
+      MemberEditResolver,
+      PreventUnsavedChanges
    ],
    bootstrap: [
       AppComponent
