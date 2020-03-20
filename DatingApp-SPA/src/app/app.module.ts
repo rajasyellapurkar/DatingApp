@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -29,6 +29,8 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditComponent } from './members/photo-edit/photo-edit.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 
 export function tokenGetter(){
@@ -60,6 +62,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      ReactiveFormsModule,
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
@@ -72,7 +75,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
          }
       }),
       TabsModule.forRoot(),
-      FileUploadModule
+      FileUploadModule,
+      BsDatepickerModule.forRoot()
    ],
    providers: [
       AuthService,

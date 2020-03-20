@@ -20,6 +20,7 @@ export class PhotoEditComponent implements OnInit
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   currentMainPhoto: Photo;
+  user :User;
 
   constructor(private authService: AuthService,
               private alertify: AlertifyService,
@@ -55,7 +56,12 @@ export class PhotoEditComponent implements OnInit
           description : res.description,
           isMain: res.isMain
         }; 
-
+        if(photo.isMain)
+        {
+          this.authService.currentUser.photoUrl = photo.url;
+          localStorage.setItem('user',JSON.stringify(this.authService.currentUser));
+          this.authService.changeMemberPhotoUrl(photo.url);
+        }
         this.photos.push(photo)
       }
     };
@@ -73,9 +79,9 @@ export class PhotoEditComponent implements OnInit
         this.currentMainPhoto = this.photos.filter(p=> p.isMain === true)[0];
         this.currentMainPhoto.isMain = false;
         photo.isMain = true;
-        const user :User = JSON.parse(localStorage.getItem('user'));
-        user.photoUrl = photo.url;
-        localStorage.setItem('user',JSON.stringify(user));
+        this.user = JSON.parse(localStorage.getItem('user'));
+        this.user.photoUrl = photo.url;
+        localStorage.setItem('user',JSON.stringify(this.user));
         this.authService.changeMemberPhotoUrl(photo.url);
         this.alertify.success("Photo set to main successfully");        
       },
