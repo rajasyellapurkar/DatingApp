@@ -34,6 +34,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ListsResolver } from './_resolvers/lists.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 
 
@@ -61,6 +63,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       MessagesComponent,
       MemberEditComponent,
       PhotoEditComponent,
+      MemberMessagesComponent,
       TimeAgoPipe
    ],
    imports: [
@@ -94,6 +97,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig },
       MemberEditResolver,
       ListsResolver,
+      MessagesResolver,
       PreventUnsavedChanges
    ],
    bootstrap: [
